@@ -1,14 +1,12 @@
 import Header from './components/Header'
-// import SearchBar from './components/SearchBar'
-import AddItem from './components/AddItem'
+import ListContent from './components/List/ListContent'
 
 function App() {
 
   return (
     <>
       <Header />
-      <AddItem />
-      {/* <SearchBar /> */}
+      <ListContent />
     </>
   )
 }

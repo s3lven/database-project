@@ -1,12 +1,10 @@
-import axios from '../axios'
+import axios from '../../axios'
 
 function ItemList({ items, fetchData }) {
 
     const updateItem = async (id) => {
         try{
-            const response = await axios.put(`/items/${id}`, {
-                id
-            })
+            const response = await axios.put(`/items/${id}`, {id})
             fetchData()
             return response.data.json
         } catch (err) {
@@ -16,17 +14,13 @@ function ItemList({ items, fetchData }) {
 
     const deleteItem = async (id) => {
         try{
-            const response = await axios.delete(`/items/${id}`, {
-                id
-            })
+            const response = await axios.delete(`/items/${id}`, {id})
             fetchData()
             return response.data.json
         } catch (err) {
             console.log(err.message)
         }
     }
-
-    console.log(items, "Here are the items")
 
     return (
     <div className="text-white">
@@ -37,7 +31,6 @@ function ItemList({ items, fetchData }) {
                         {item.text}</li>
                         <button type="button" onClick={() => deleteItem(item._id)}>X</button>
                 </>
-                
             })}
         </ul>
     </div>
