@@ -1,7 +1,26 @@
 import AddItemForm from './AddItemForm'
+import { useContext } from 'react'
+import { NewItemContext } from "../Database"
 
 function Modal( {setOpenModal} ) {
-    
+    const {formData, setFormData, addItem} = useContext(NewItemContext)
+
+    const handleSubmit = (e) => {
+        console.log("Clicked on Done button")
+        e.preventDefault();
+        // Check Inputs
+        if(!formData.name || !formData.description || !formData.category) return null
+        
+        // Submit Data
+        console.log(formData);
+        addItem(e)
+
+        // Clear Inputs
+        setFormData("")
+        // Close Modal
+        setOpenModal(false)
+    };
+
     return (
         // Modal Background
         <div className="fixed w-full h-full top-0 left-0 no-doc-scroll
@@ -29,7 +48,8 @@ function Modal( {setOpenModal} ) {
                 <div className="flex flex-initial self-end justify-center 
                         w-32 h-10
                         m-2 ">
-                    <button className="bg-red-500 px-8 rounded-full text-white drop-shadow-md font-semibold">
+                    <button className="bg-red-500 px-8 rounded-full text-white drop-shadow-md font-semibold"
+                        onClick={handleSubmit}>
                         Done
                     </button>
                 </div>

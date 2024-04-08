@@ -2,12 +2,16 @@ const mongoose = require('mongoose')
 
 const itemSchema = mongoose.Schema(
     {
-        text: {
+        name: {
             type: String,
             required: true,
         },
-        completed: {
-            type: Boolean,
+        description: {
+            type: String,
+            required: true,
+        },
+        category: {
+            type: String,
             required: true,
         }
     },

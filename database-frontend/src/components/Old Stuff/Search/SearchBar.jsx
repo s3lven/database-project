@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+// SearchBar from Pedro
 
 function SearchBar({ placeholder, data}) {
     const [filteredData, setFilteredData] = useState([])

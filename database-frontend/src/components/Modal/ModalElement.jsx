@@ -5,10 +5,9 @@ import Modal from './Modal'
 function ModalElement() {
     const [openModal, setOpenModal] = useState(false)
 
-
     return (
         <div className="flex justify-center mb-10 ">
-            {/* Add Button */}
+            {/* Add new item button to open modal*/}
             <button 
                 className="bg-red-500 py-5 px-5 rounded-full text-white drop-shadow-md font-semibold"
                 onClick={() => { setOpenModal(true)}}>Add New Item

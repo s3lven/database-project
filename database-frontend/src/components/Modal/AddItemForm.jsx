@@ -1,11 +1,9 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import { NewItemContext } from "../Database"
 
 function AddItemForm() {
-    const [formData, setFormData] = useState({
-        name: "",
-        description: "",
-        category: ""
-    })
+
+    const {formData, setFormData} = useContext(NewItemContext)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -14,34 +12,29 @@ function AddItemForm() {
             [name]: value,
         }))
     }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData)
-
-        // add item to database function
-    }
     
     return (
         <>
             <main>
-                <form className="flex flex-col justify-center items-center gap-8"
-                    onSubmit={handleSubmit}>
+                <form className="flex flex-col justify-center items-center gap-8">
                     <input 
                         type="text"
-                        value={formData.name}
+                        value={formData.name ?? ''}
+                        name="name"
                         onChange={handleInputChange}
                         placeholder="Item Name"
                     />
                     <input 
                         type="text"
-                        value={formData.description}
+                        value={formData.description ?? ''}
+                        name="description"
                         onChange={handleInputChange}
                         placeholder="Description"
                     />
                     <input 
                         type="text"
-                        value={formData.category}
+                        value={formData.category ?? ''}
+                        name="category"
                         onChange={handleInputChange}
                         placeholder="Category"
                     />
