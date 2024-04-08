@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function Item({data}) {
+function Item({data, deleteItem}) {
     const [display, setDisplay] = useState(true)
 
     const handleOnClick = () => {
@@ -23,7 +23,7 @@ function Item({data}) {
                             <p>{data.category}</p>
                         </div>
                         {/* Close Button */}
-                        <button type="button">
+                        <button onClick={deleteItem} type="button">
                         X
                         </button>
                     </>

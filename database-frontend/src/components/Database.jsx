@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from '../axios'
-import Item from './Item'
 import ModalElement from './Modal/ModalElement'
+import ItemList from './ItemList'
 
 export const NewItemContext = React.createContext()
 
@@ -86,18 +86,7 @@ function Database() {
                         className="text-black text-center rounded-md w-3/5 h-14"
                     />
                 </div>
-                {/* List Element */}
-                {filteredData.length === 0 ?
-                    <p className="list-container my-10">No items found</p> :
-                    <ul className="list-container my-10">
-                        {filteredData.map(post =>
-                            <Item 
-                                key={post.id}
-                                data={post}
-                            />
-                        )}
-                    </ul>
-                }
+                <ItemList filteredData={filteredData} fetchData={fetchData}/>
             </div>
         </>
     )
