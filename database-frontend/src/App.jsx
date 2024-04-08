@@ -1,18 +1,18 @@
-import { useState } from 'react'
-
 import Header from './components/Header'
-import ListContent from './components/List/ListContent'
-import Modal from './components/Modal/Modal'
+import SearchBar from './components/SearchBar'
+import ModalElement from './components/Modal/ModalElement'
 
 function App() {
-    const [openModal, setOpenModal] = useState(false)
 
     return (
       <>
         <Header />
-        <ListContent />
+        {/* <ListContent /> */}
+        <ModalElement />
+        <SearchBar />
 
-        {openModal && <Modal setOpenModal={setOpenModal}/>}
+
+        
       </>
     )
 }
