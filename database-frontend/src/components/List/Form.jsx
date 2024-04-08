@@ -6,7 +6,7 @@ function Form({ input, setInput, addItem}) {
                 <div className="flex gap-5 mt-3">
                 <input
                     type="text"
-                    placeholder="Search"
+                    placeholder="Add Item"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     className="text-black flex flex-row text-center rounded-md h-10"
