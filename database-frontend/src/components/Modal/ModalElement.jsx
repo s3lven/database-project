@@ -5,12 +5,6 @@ import Modal from './Modal'
 function ModalElement() {
     const [openModal, setOpenModal] = useState(false)
 
-    if(openModal) {
-        document.body.classList.add('active-modl')
-    } else {
-        document.body.classList.remove('active-modl')
-    }
-
 
     return (
         <div className="flex justify-center mb-10 ">

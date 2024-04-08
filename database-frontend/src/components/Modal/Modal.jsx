@@ -4,7 +4,7 @@ function Modal( {setOpenModal} ) {
     
     return (
         // Modal Background
-        <div className="fixed w-full h-full top-0 left-0
+        <div className="fixed w-full h-full top-0 left-0 no-doc-scroll
             backdrop-blur-sm flex justify-center items-center">
             {/* Modal Container */}
             <div className="w-1/4 h-1/4 rounded-xl
@@ -28,8 +28,8 @@ function Modal( {setOpenModal} ) {
                 {/* Footer */}
                 <div className="flex flex-initial self-end justify-center 
                         w-32 h-10
-                        m-2 bg-red-500 rounded-full text-white drop-shadow-md font-semibold">
-                    <button className="">
+                        m-2 ">
+                    <button className="bg-red-500 px-8 rounded-full text-white drop-shadow-md font-semibold">
                         Done
                     </button>
                 </div>
