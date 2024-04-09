@@ -20,7 +20,7 @@ app.use(Cors())
 // DB Config
 mongoose.connect(connectionURL)
 .then(() => {
-    app.listen(port, () => console.log(`Running on port: ${port}`))
+    app.listen(port, () => console.log(`Connected to the database and running on port: ${port}`))
 })
 .catch((err) => console.log(err))
 
@@ -33,7 +33,7 @@ app.get('/items', getItems)
 app.post('/items', createItems)
 
 // Update an Item
-app.put('/items/:id', updateItems)
+app.patch('/items/:id', updateItems)
 
 // Delete an Item
 app.delete('/items/:id', deleteItems)
