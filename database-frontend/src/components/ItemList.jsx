@@ -12,14 +12,18 @@ function ItemList({filteredData, fetchData}) {
         }
     }
 
-
+    
 
     return (
         <>
             {/* List Element */}
-            {filteredData.length === 0 ?
-                <p className="list-container my-10">No items found</p> :
-                <ul className="list-container my-10">
+            {filteredData.length === 0 ? 
+            <div className="bg-white rounded my-20 mx-auto p-20 relative shadow=[2px_2px_5px_rgba(0,0,0,0.05)]
+                flex justify-center">
+                <p className="">No items found</p>
+            </div>
+            :
+                <ul className="">
                     {filteredData.map(post =>
                         <Item 
                             key={post._id}

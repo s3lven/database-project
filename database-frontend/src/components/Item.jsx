@@ -9,10 +9,13 @@ function Item({data, deleteItem}) {
 
     return (
         <>
-            <div onClick={handleOnClick} className="item"> 
+            <div onClick={handleOnClick} className="bg-white rounded my-20 mx-auto p-20 relative shadow=[2px_2px_5px_rgba(0,0,0,0.05)]"> 
                 {display ? 
                     <>
-                        <p>Name: {data.name}</p>
+                        <p className="mx-0 mt-0 mb-2.5 text-xl text-primary">{data.name}</p>
+                        <p className="item_details">{data.category}</p>
+                        <p className="item_details">{data.numberAvailable}</p>
+
                     </>:
                     <>
                         <div>
@@ -22,10 +25,12 @@ function Item({data, deleteItem}) {
                             <p>{data.description}</p>
                             <p>{data.category}</p>
                         </div>
-                        {/* Close Button */}
-                        <button onClick={deleteItem} type="button">
+                        {/* Delete Button */}
+                        <span onClick={deleteItem}
+                            className="absolute top-5 right-5 p-1.5 rounded-lg cursor-pointer
+                                bg-slate-50 text-zinc-800">
                         X
-                        </button>
+                        </span>
                     </>
                 }
             </div>

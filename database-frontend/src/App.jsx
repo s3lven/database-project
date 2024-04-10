@@ -1,5 +1,8 @@
-import Database from './components/Database'
-import Header from './components/Header'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+
+// pages and components
+import Home from './pages/Home'
+import Navbar from './components/Navbar'
 
 // TODO: 
 // Add Footer with a divder, author, github link, and technologies used
@@ -16,11 +19,19 @@ import Header from './components/Header'
 function App() {
 
     return (
-      <>
-        <Header />
-        {/* Database Feature */}
-        <Database />
-      </>
+        <div className="App">
+          <BrowserRouter>
+          <Navbar />
+          <div className="w-1400 p-20 my-0 mx-auto">
+            <Routes>
+              <Route
+              path="/"
+              element={<Home />}
+              />
+            </Routes>
+          </div>        
+        </BrowserRouter>
+      </div>
     )
 }
 

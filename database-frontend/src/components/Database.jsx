@@ -14,7 +14,11 @@ function Database() {
     const [formData, setFormData] = useState({
         name: "",
         description: "",
-        category: ""
+        category: "",
+        recommendedUses: "",
+        specialRequirements: "",
+        numberAvailable: 0
+
     })
 
     const handleInputChange = (e) => {
@@ -70,24 +74,24 @@ function Database() {
 
     return (
         <>
-            {/* Modal Code */}
-            <NewItemContext.Provider value={contextValue}>
-                    <ModalElement />
-            </NewItemContext.Provider>
             {/* Search Bar Code */}
-            <div className="text-white">
+            <div className="">
                 {/* Input Element */}
-                <div className="flex flex-row justify-center">
+                <div className="">
                     <input
                         type="text"
                         placeholder="Search..."
                         value={filterInput}
                         onChange={handleInputChange}
-                        className="text-black text-center rounded-md w-3/5 h-14"
+                        className="text-black text-center rounded-md w-full h-14"
                     />
                 </div>
                 <ItemList filteredData={filteredData} fetchData={fetchData}/>
             </div>
+            {/* Modal Code */}
+            <NewItemContext.Provider value={contextValue}>
+                    <ModalElement />
+            </NewItemContext.Provider>
         </>
     )
 }

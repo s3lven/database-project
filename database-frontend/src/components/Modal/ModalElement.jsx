@@ -3,13 +3,13 @@ import { useState } from 'react'
 import Modal from './Modal'
 
 function ModalElement() {
-    const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = useState(true)
 
     return (
-        <div className="flex justify-center mb-10 ">
+        <div className="justify-self-center">
             {/* Add new item button to open modal*/}
             <button 
-                className="bg-red-500 py-5 px-5 rounded-full text-white drop-shadow-md font-semibold"
+                className="bg-primary border text-white px-16 py-8 rounded-md cursor-pointer"
                 onClick={() => { setOpenModal(true)}}>Add New Item
             </button>
 

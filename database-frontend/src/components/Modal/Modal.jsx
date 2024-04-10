@@ -26,9 +26,9 @@ function Modal( {setOpenModal} ) {
         <div className="fixed w-full h-full top-0 left-0 no-doc-scroll
             backdrop-blur-sm flex justify-center items-center">
             {/* Modal Container */}
-            <div className="w-1/4 h-1/4 rounded-xl
-                bg-white
-                flex flex-col px-25 py-25">
+            <div className="rounded-xl border-black shadow-lg
+                bg-white w-4/5
+                flex flex-col px-7 py-6">
                 {/* Close Button */}
                 <div className="flex justify-end">
                     <button
@@ -41,7 +41,7 @@ function Modal( {setOpenModal} ) {
                     <h1 className="text-xl font-semibold">Add a new item</h1>
                 </div>
                 {/* Body */}
-                <div className="flex flex-col flex-1 justify-center items-center text-center">
+                <div className="">
                     <AddItemForm />
                 </div>
                 {/* Footer */}
