@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Modal from './Modal'
 
 function ModalElement() {
-    const [openModal, setOpenModal] = useState(true)
+    const [openModal, setOpenModal] = useState(false)
 
     return (
         <div className="justify-self-center">

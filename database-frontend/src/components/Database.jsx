@@ -16,9 +16,10 @@ function Database() {
         description: "",
         category: "",
         recommendedUses: "",
-        specialRequirements: "",
-        numberAvailable: 0
-
+        numberAvailable: 0,
+        productURL: "",
+        location: [],
+        specialRequirements: [],
     })
 
     const handleInputChange = (e) => {
@@ -48,10 +49,14 @@ function Database() {
         await axios.post('/items', [{
             ...apiData, 
             name: formData.name,
+            category: formData.category,
             description: formData.description,
-            category: formData.category
+            recommendedUses: formData.recommendedUses,
+            specialRequirements: formData.specialRequirements,
+            numberAvailable: formData.numberAvailable,
+            productURL: formData.productURL,
+            location: formData.location,
         }])
-        console.log('added Item')
         fetchData()
     }
 

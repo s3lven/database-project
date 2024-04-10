@@ -12,7 +12,6 @@ function Modal( {setOpenModal} ) {
         if(!formData.name || !formData.description || !formData.category) return null
         
         // Submit Data
-        console.log(formData);
         addItem(e)
 
         // Clear Inputs

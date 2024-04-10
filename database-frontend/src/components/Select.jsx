@@ -1,13 +1,5 @@
 import { useState, useEffect, useRef } from "react"
 
-// April 9-10 - I learned how to create a dropdown select menu with single and multi-select features.
-// In terms of CSS, I conditionally rendered styles using literals, discovered child selectors,
-// learned about modifiers for states of components, and learned certain standards for designing components
-// In terms of React, I learned that props can be standalone (no value assigned). I still need to review useRef hook.
-// I learned about keyboard accessability and how to make that possible for users.
-// In terms of Javascript, I learned about more event parameters (stopPropagation, tabIndex, and onBlur).
-// I should continue to look into more of these.
-
 function Select({ multiple, value, onChange, options }) {
     const [isOpen, setIsOpen] = useState(false)
     const [highlightedIndex, setHighlightedIndex] = useState(0)
@@ -48,7 +40,7 @@ function Select({ multiple, value, onChange, options }) {
                     if (isOpen) selectOption(options[highlightedIndex])
                     break
                 case "ArrowUp":
-                case "ArrowDown":
+                case "ArrowDown": {
                     if(!isOpen) {
                         setIsOpen(true)
                         break
@@ -58,6 +50,7 @@ function Select({ multiple, value, onChange, options }) {
                         setHighlightedIndex(newValue)
                     }
                     break
+                }
                 case "Escape":
                     setIsOpen(false)
                     break
@@ -67,16 +60,17 @@ function Select({ multiple, value, onChange, options }) {
         containerRef.current?.addEventListener("keydown", handler)
 
         return () => {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             containerRef.current?.removeEventListener("keydown", handler)
 
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen, highlightedIndex, options])
-
     
     return (
         // Container 
-        <div className="relative w-80 min-h-6
-            border border-solid border-gray-700 rounded
+        <div className="relative min-h-6
+            border border-solid text-borCol rounded
             flex items-center gap-2 p-2 outline-none
             focus:border-cyan-500"
             tabIndex={0}
@@ -84,26 +78,24 @@ function Select({ multiple, value, onChange, options }) {
             onBlur={() => setIsOpen(false)}
             ref={containerRef}>
             {/* Value */}
-            <span className="flex-1 flex flex-wrap gap-2">{multiple? value.map(v => (
+            <span className="flex-1 flex flex-wrap gap-2">{multiple ? value.map(v => (
                 <button key={v.value}
                     onClick={e => {
                         e.stopPropagation()
                         selectOption(v)
                     }}
                     className="flex items-center gap-2
-                        border border-solid border-gray-700 rounded py-0.5 px-1
+                        border border-solid text-borCol rounded py-0.5 px-1
                         cursor-pointer bg-none outline-none group
                         focus:bg-red-300 focus:border-red-600 
-                        hover:bg-red-300 hover:border-red-600">
-                    {v.label}
-                    <span className="group-hover:text-red-600 group-focus:text-red-600 text-gray-700 text-sm">
-                        &times;
-                    </span>
+                        hover:bg-red-300 hover:border-red-600"
+                >{v.label}<span className="group-hover:text-red-600 group-focus:text-red-600 text-gray-700 text-sm">&times;</span>
                 </button>
             )) : value?.label}
             </span>
             {/* Clear Button */}
             <button onClick={e => {
+                e.preventDefault()
                 e.stopPropagation()
                 clearOptions()
             }} 
@@ -121,10 +113,9 @@ function Select({ multiple, value, onChange, options }) {
                 <ul className="absolute m-0 p-0 list-none max-h-60
                     border border-solid border-gray-700 rounded w-full
                     left-0 top-[calc(100%_+_.25em)]
-                    bg-white z-100">
+                    bg-white z-[100]">
                     {/* Option */}
-                    {
-                    options.map((option, index) => (
+                    {options.map((option, index) => (
                         <li key={option.value}
                         onClick={e => {
                             e.stopPropagation()
@@ -137,7 +128,8 @@ function Select({ multiple, value, onChange, options }) {
                             className={`py-1 px-2 cursor-pointer
                                 ${isOptionSelected(option) ? 'bg-cyan-500 ' : ''}
                                 ${index === highlightedIndex ? 'bg-cyan-700 text-white ' : ''} `}>
-                            {option.label}</li>
+                            {option.label
+                        }</li>
                     ))}
                 </ul>
             }

@@ -9,6 +9,7 @@ export default {
             colors: {
                 primary: '#1aac83',
                 error: '#e7195a',
+                borCol: '#52525b',
             },
             fontFamily: {
                 display: ['Poppins', 'serif'],

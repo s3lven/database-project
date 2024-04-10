@@ -17,7 +17,8 @@ const itemSchema = mongoose.Schema(
             type: String,
         },
         specialRequirements: {
-            type: String,
+            type: Array,
+            required: true,
         },
         numberAvailable: {
             type: Number,
@@ -27,7 +28,8 @@ const itemSchema = mongoose.Schema(
             type: String,
         },
         location: {
-            type: String,
+            type: Array,
+            required: true
         },
     },
     {timestamps: true}

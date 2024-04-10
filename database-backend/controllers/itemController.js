@@ -14,11 +14,12 @@ const getItems = async (req, res) => {
 // Create Items List
 const createItems = async (req, res) => {
     const {name, category, description, recommendedUses, specialRequirements, numberAvailable, productURL, location} = req.body
+    console.log(req.body)
     try {
         const newItems = await Items.create({name, category, description, recommendedUses, specialRequirements, numberAvailable, productURL, location})
-        res.status(200).send(newItems)
+        res.status(201).send(newItems)
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(401).send(error.message)
     }
 }
 
@@ -36,9 +37,9 @@ const updateItems = async (req, res) => {
         if (!updateItem) {
             return res.status(404).send(`There is no Item with id of ${id}`)
         }
-        res.status(200).send(updateItem)
+        res.status(202).send(updateItem)
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(402).send(error.message)
     }
 }
 
@@ -54,9 +55,9 @@ const deleteItems = async (req, res) => {
         if (!deleteItem) {
             return res.status(404).send(`There is no Item with id of ${id}`)
         }
-        res.status(200).send(deleteItem)
+        res.status(203).send(deleteItem)
     } catch (error) {
-        res.status(400).send(error.message)
+        res.status(403).send(error.message)
     }
 }
 
