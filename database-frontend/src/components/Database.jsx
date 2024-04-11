@@ -46,7 +46,7 @@ function Database() {
 
     const addItem = async(e) => {
         e.preventDefault()
-        await axios.post('/items', [{
+        await axios.post('/items', {
             ...apiData, 
             name: formData.name,
             category: formData.category,
@@ -56,7 +56,7 @@ function Database() {
             numberAvailable: formData.numberAvailable,
             productURL: formData.productURL,
             location: formData.location,
-        }])
+        })
         fetchData()
     }
 

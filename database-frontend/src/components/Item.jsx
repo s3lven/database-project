@@ -12,9 +12,9 @@ function Item({data, deleteItem}) {
             <div onClick={handleOnClick} className="bg-white rounded my-20 mx-auto p-20 relative shadow=[2px_2px_5px_rgba(0,0,0,0.05)]"> 
                 {display ? 
                     <>
-                        <p className="mx-0 mt-0 mb-2.5 text-xl text-primary">{data.name}</p>
-                        <p className="item_details">{data.category}</p>
-                        <p className="item_details">{data.numberAvailable}</p>
+                        <p className="mx-0 mt-0 mb-2.5 text-xl text-primary semi-bold">{data.name}</p>
+                        <p className="item_details">Category: {data.category}</p>
+                        <p className="item_details">Items Available: {data.numberAvailable}</p>
 
                     </>:
                     <>
