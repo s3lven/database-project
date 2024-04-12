@@ -11,15 +11,14 @@ function ModalElement() {
 
     return (
         <ToggleModalContext.Provider value={contextValue}>
-            <div className="justify-self-center">
                 {/* Add new item button to open modal*/}
                 <button 
-                    className="bg-primary border text-white px-16 py-8 rounded-md cursor-pointer"
-                    onClick={() => { setOpenModal(true)}}>Add New Item
+                    className="bg-primary border text-white px-16 py-8 rounded-md cursor-pointer
+                    lg:self-start lg:px-8 xl:px-16"
+                    onClick={() => { setOpenModal(true) }}>Add New Item
                 </button>
 
                 {openModal && <Modal />}
-            </div>
         </ToggleModalContext.Provider>
     ) 
 }

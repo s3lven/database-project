@@ -73,7 +73,7 @@ function Database() {
                 <div className="">
                     <input
                         type="text"
-                        placeholder="Search..."
+                        placeholder="Search Item Name"
                         value={filterInput}
                         onChange={handleInputChange}
                         className="text-black text-center rounded-md w-full h-14"

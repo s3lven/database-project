@@ -1,3 +1,4 @@
+import { IoClose } from "react-icons/io5";
 import { useContext } from 'react'
 import AddItemForm from './AddItemForm'
 import { ToggleModalContext } from './ModalElement'
@@ -17,7 +18,9 @@ function Modal() {
                 <div className="flex justify-end">
                     <button
                         className="bg-transparent border-0 text-2xl cursor-pointer text-red-950"
-                        onClick={() => {setOpenModal(false)}}>X</button>
+                        onClick={() => {setOpenModal(false)}}>
+                            <IoClose />
+                    </button>
                 </div>
                 {/* Modal Content */}
                 {/* Title */}
