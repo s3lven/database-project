@@ -16,6 +16,10 @@
   .add-item {
     @apply p-2.5 mt-2.5 mb-5 w-full border border-solid text-zinc-600 rounded box-border
   }
+
+  .input_error {
+    @apply border-error
+  }
 }
 
 :root:has(.no-doc-scroll) {

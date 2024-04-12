@@ -13,13 +13,35 @@ const getItems = async (req, res) => {
 
 // Create Items List
 const createItems = async (req, res) => {
-    const {name, category, description, recommendedUses, specialRequirements, numberAvailable, productURL, location} = req.body
-    console.log(req.body)
+    let {name, category, description, recommendedUses, specialRequirements, numberAvailable, productURL, location} = req.body
+
     try {
         const newItems = await Items.create({name, category, description, recommendedUses, specialRequirements, numberAvailable, productURL, location})
         res.status(201).send(newItems)
     } catch (error) {
-        res.status(401).send(error.message)
+        let emptyFields = []
+
+        if (!name) {
+            emptyFields.push('name')
+        }
+        if (!category) {
+            emptyFields.push('category')
+        }
+        if (specialRequirements.length === 0) {
+            emptyFields.push('specialRequirements')
+        }
+        if (!numberAvailable) {
+            emptyFields.push('numberAvailable')
+        }
+        if (location.length === 0) {
+            emptyFields.push('location')
+        }
+
+        if (emptyFields.length > 0) {
+            return res.status(400).json({error: "Please fill in all of the required fields", emptyFields, specialRequirements, location})
+        }
+
+        res.status(401).send(error)
     }
 }
 

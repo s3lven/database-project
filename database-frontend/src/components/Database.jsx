@@ -9,6 +9,7 @@ function Database() {
     const [filterInput, setFilterInput] = useState('')
     const [apiData, setApiData] = useState([])
     const [filteredData, setFilteredData] = useState([])
+    const [emptyFields, setEmptyFields] = useState([])
 
     // for new items
     const [formData, setFormData] = useState({
@@ -44,22 +45,6 @@ function Database() {
         }
     }
 
-    const addItem = async(e) => {
-        e.preventDefault()
-        await axios.post('/items', {
-            ...apiData, 
-            name: formData.name,
-            category: formData.category,
-            description: formData.description,
-            recommendedUses: formData.recommendedUses,
-            specialRequirements: formData.specialRequirements,
-            numberAvailable: formData.numberAvailable,
-            productURL: formData.productURL,
-            location: formData.location,
-        })
-        fetchData()
-    }
-
     useEffect(() => {
         axios.get('/items')
             .then (res => {
@@ -72,9 +57,12 @@ function Database() {
     },[])
 
     const contextValue = {
+        apiData,
         formData,
         setFormData,
-        addItem
+        fetchData,
+        emptyFields,
+        setEmptyFields,
     }
 
     return (

@@ -1,9 +1,11 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
+import { NewItemContext } from "./Database"
 
-function Select({ multiple, value, onChange, options }) {
+function Select({ multiple, value, onChange, options, containerName }) {
     const [isOpen, setIsOpen] = useState(false)
     const [highlightedIndex, setHighlightedIndex] = useState(0)
     const containerRef = useRef(null)
+    const {emptyFields} = useContext(NewItemContext)
 
     function clearOptions() {
         multiple? onChange([]) : onChange(undefined)
@@ -69,10 +71,11 @@ function Select({ multiple, value, onChange, options }) {
     
     return (
         // Container 
-        <div className="relative min-h-6
+        <div className={`relative min-h-6
             border border-solid text-borCol rounded
             flex items-center gap-2 p-2 outline-none
-            focus:border-cyan-500"
+            focus:border-cyan-500
+            ${emptyFields.includes(containerName) ? 'border-error' : ''}`}
             tabIndex={0}
             onClick={() => setIsOpen(prev => !prev)}
             onBlur={() => setIsOpen(false)}
