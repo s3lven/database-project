@@ -1,23 +1,10 @@
 import { locationOptions, requirementOptions } from "./Modal/options"
 import Select from "./Select"
-import { useState } from 'react'
+import { useContext } from 'react'
+import { NewItemContext } from "./Database"
 
 function Filter() {
-    const [filterDisplay, setFilterDisplay] = useState([])
-
-    console.log("filterParam is: ", filterDisplay)
-
-    const handleFilterChange = (o) => {
-        console.log(o)
-        console.log(o.includes({label: "CHT", value: 2}))
-
-        setFilterDisplay((prevParamData) => ({
-        ...prevParamData,
-        locationFilter: o
-    }))
-    }
-
-    
+    const {filter, setFilter} = useContext(NewItemContext)
 
     return (
         <div className='bg-white rounded p-5 flex flex-col'>
@@ -29,22 +16,22 @@ function Filter() {
             <div>
                 <label>Location</label>
                 <Select 
-                    multiple
                     options={locationOptions}
-                    value={filterDisplay.locationFilter ?? []}
-                    onChange={o => {handleFilterChange(o)}}
+                    value={filter.locationFilter ?? ""}
+                    onChange={o => {setFilter((prevFormData) => (
+                        {...prevFormData,
+                        locationFilter: o}
+                    ))}}
                 />
-                {/* <label>Special Requirements</label>
+                <label className="mt-3">Special Requirements</label>
                 <Select 
-                    multiple
                     options={requirementOptions}
-                    value={filterParam.specialRequirementFilter ?? []}
-                    onChange={o => {setFilterParam((prevParamData) => ({
-                                    ...prevParamData,
-                                    specialRequirementFilter: o
-                                }))}}
-                /> */}
-                
+                    value={filter.requirementFilter ?? ""}
+                    onChange={o => {setFilter((prevFormData) => (
+                        {...prevFormData,
+                        requirementFilter: o}
+                    ))}}
+                />
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ function Select({ multiple, value, onChange, options, containerName }) {
     const {emptyFields} = useContext(NewItemContext)
 
     function clearOptions() {
-        multiple? onChange([]) : onChange(undefined)
+        multiple? onChange([]) : onChange("")
     }
 
     function selectOption(option) {

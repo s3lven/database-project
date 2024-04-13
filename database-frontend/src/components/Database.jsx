@@ -3,6 +3,7 @@ import axios from '../axios'
 import ModalElement from './Modal/ModalElement'
 import ItemList from './ItemList'
 import Filter from './Filter'
+import _ from "lodash"
 
 export const NewItemContext = React.createContext()
 
@@ -11,6 +12,7 @@ function Database() {
     const [apiData, setApiData] = useState([])
     const [filteredData, setFilteredData] = useState([])
     const [emptyFields, setEmptyFields] = useState([])
+    const [filter, setFilter] = useState({})
 
     // for new items
     const [formData, setFormData] = useState({
@@ -24,21 +26,6 @@ function Database() {
         specialRequirements: [],
     })
 
-    const handleInputChange = (e) => {
-        // Change Filter Bar Input
-        const filterTerm = e.target.value
-        setFilterInput(filterTerm)
-
-        // Filter Algorithm
-        const filteredItems = apiData.filter((item) => {
-            let filteredItem = item.name.toLowerCase().includes(filterTerm.toLowerCase())
-            console.log(filteredItem)
-            // filteredItem = item.specialRequirements.includes(filterParam)
-            return filteredItem
-        })
-        setFilteredData(filteredItems)
-    }
-    
     const fetchData = async () => {
         try {
             const response = await axios.get('/items')
@@ -60,6 +47,29 @@ function Database() {
             })
     },[])
 
+    useEffect(() => {
+        console.log(filter)
+        const shouldDisplay = (item) => {
+            // console.log("Item Location: ", item.location)
+            let matchesSearch = item.name.toLowerCase().includes(filterInput.toLowerCase())
+            // console.log("matchesSearch: ", matchesSearch)
+            let matchesLocation = (filter.locationFilter != "" ? _.some(item.location, filter.locationFilter): true)
+            // console.log("matchesLocation: ", matchesLocation)
+            let matchesRequirements = (filter.requirementFilter != "" ? _.some(item.specialRequirements, filter.requirementFilter): true)
+
+            
+    
+            return matchesSearch && matchesLocation && matchesRequirements
+        }
+
+        const filteredItems = apiData.filter((item) => {
+            return shouldDisplay(item)
+        })
+
+        setFilteredData(filteredItems)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterInput, filter])
+
     const contextValue = {
         apiData,
         formData,
@@ -67,6 +77,8 @@ function Database() {
         fetchData,
         emptyFields,
         setEmptyFields,
+        filter,
+        setFilter
     }
 
     return (
@@ -79,7 +91,7 @@ function Database() {
                         type="text"
                         placeholder="Search Item Name"
                         value={filterInput}
-                        onChange={handleInputChange}
+                        onChange={(e) => {setFilterInput(e.target.value)}}
                         className="text-black text-center rounded-md w-full h-14"
                     />
                 </div>
