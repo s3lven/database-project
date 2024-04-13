@@ -3,20 +3,9 @@ import { NewItemContext } from "../Database"
 import { ToggleModalContext } from './ModalElement'
 import Select from '../Select'
 import axios from '../../axios'
+import { locationOptions, requirementOptions } from './options'
 
-const locationOptions = [
-    {label: "BIMH", value: 1},
-    {label: "CHT", value: 2},
-    {label: "MH", value: 3},
-    {label: "Other", value: 4},
-]
 
-const requirementOptions = [
-    {label: "Extended Setup", value: 5},
-    {label: "Advanced Setup", value: 6},
-    {label: "Special Order Consumables", value: 7},
-    {label: "Other", value: 8},
-]
 
 function AddItemForm() {
     const [error, setError] = useState(null)
@@ -140,16 +129,16 @@ function AddItemForm() {
                     </div>
                     <div className='basis-1/2'>
                         <label >Special Requirements</label>
-                        <Select 
-                            multiple
-                            value={formData.specialRequirements ?? []}
-                            onChange={o => {setFormData((prevFormData) => ({
-                                ...prevFormData,
-                                specialRequirements: o
-                            }))}}
-                            options={requirementOptions}
-                            containerName="specialRequirements"
-                        />
+                            <Select 
+                                multiple
+                                value={formData.specialRequirements ?? []}
+                                onChange={o => {setFormData((prevFormData) => ({
+                                    ...prevFormData,
+                                    specialRequirements: o
+                                }))}}
+                                options={requirementOptions}
+                                containerName="specialRequirements"
+                            />                        
                     </div>
                 </div>
                 <div className='flex justify-end my-5'>

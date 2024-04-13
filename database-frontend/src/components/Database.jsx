@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from '../axios'
 import ModalElement from './Modal/ModalElement'
 import ItemList from './ItemList'
+import Filter from './Filter'
 
 export const NewItemContext = React.createContext()
 
@@ -30,7 +31,10 @@ function Database() {
 
         // Filter Algorithm
         const filteredItems = apiData.filter((item) => {
-            return item.name.toLowerCase().includes(filterTerm.toLowerCase())
+            let filteredItem = item.name.toLowerCase().includes(filterTerm.toLowerCase())
+            console.log(filteredItem)
+            // filteredItem = item.specialRequirements.includes(filterParam)
+            return filteredItem
         })
         setFilteredData(filteredItems)
     }
@@ -68,9 +72,9 @@ function Database() {
     return (
         <>
             {/* Search Bar Code */}
-            <div className="">
+            <div>
                 {/* Input Element */}
-                <div className="">
+                <div>
                     <input
                         type="text"
                         placeholder="Search Item Name"
@@ -81,10 +85,17 @@ function Database() {
                 </div>
                 <ItemList filteredData={filteredData} fetchData={fetchData}/>
             </div>
-            {/* Modal Code */}
+            
             <NewItemContext.Provider value={contextValue}>
-                    <ModalElement />
+                <div className='flex flex-col gap-5'>
+                    {/* Modal Code */}
+                    <div>
+                                <ModalElement />
+                    </div>
+                    <Filter />
+                </div>
             </NewItemContext.Provider>
+            
         </>
     )
 }

@@ -28,7 +28,7 @@ function Modal() {
                     <h1 className="text-xl font-semibold">Add a new item</h1>
                 </div>
                 {/* Body */}
-                <div className="">
+                <div>
                     <AddItemForm />
                 </div>
             </div>

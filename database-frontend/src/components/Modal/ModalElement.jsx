@@ -14,7 +14,7 @@ function ModalElement() {
                 {/* Add new item button to open modal*/}
                 <button 
                     className="bg-primary border text-white px-16 py-8 rounded-md cursor-pointer
-                    lg:self-start lg:px-8 xl:px-16"
+                    lg:self-start lg:px-8 xl:px-16 w-full"
                     onClick={() => { setOpenModal(true) }}>Add New Item
                 </button>
 
