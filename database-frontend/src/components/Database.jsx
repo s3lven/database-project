@@ -4,6 +4,7 @@ import ModalElement from './Modal/ModalElement'
 import ItemList from './ItemList'
 import Filter from './Filter'
 import _ from "lodash"
+import AddItemForm from './Modal/AddItemForm'
 
 export const NewItemContext = React.createContext()
 
@@ -102,7 +103,7 @@ function Database() {
                 <div className='flex flex-col gap-5'>
                     {/* Modal Code */}
                     <div>
-                                <ModalElement />
+                                <ModalElement buttonText={"Add New Item"} modalTitle={"Add a new item"} modalBody={<AddItemForm />}/>
                     </div>
                     <Filter />
                 </div>

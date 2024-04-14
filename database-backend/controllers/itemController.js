@@ -11,13 +11,33 @@ const getItems = async (req, res) => {
     }
 }
 
+// Get ONE Item from Items List
+const getOneItem = async(req, res) => {
+    const { id } = req.params
+    try {
+        // Check if ID is valid
+        if(!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).send(`There is no Item with id of ${id}`)
+        }
+
+        const item = await Items.findById(id)
+
+        if(!item) {
+            return res.status(404).send(`There is no Item with id of ${id}`)
+        }
+        res.status(200).send(item)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+}
+
 // Create Items List
 const createItems = async (req, res) => {
     let {name, category, description, recommendedUses, specialRequirements, numberAvailable, productURL, location} = req.body
 
     try {
         const newItems = await Items.create({name, category, description, recommendedUses, specialRequirements, numberAvailable, productURL, location})
-        res.status(201).send(newItems)
+        res.status(200).send(newItems)
     } catch (error) {
         let emptyFields = []
 
@@ -41,7 +61,7 @@ const createItems = async (req, res) => {
             return res.status(400).json({error: "Please fill in all of the required fields", emptyFields, specialRequirements, location})
         }
 
-        res.status(401).send(error)
+        res.status(400).send(error)
     }
 }
 
@@ -59,9 +79,9 @@ const updateItems = async (req, res) => {
         if (!updateItem) {
             return res.status(404).send(`There is no Item with id of ${id}`)
         }
-        res.status(202).send(updateItem)
+        res.status(200).send(updateItem)
     } catch (error) {
-        res.status(402).send(error.message)
+        res.status(400).send(error.message)
     }
 }
 
@@ -77,14 +97,15 @@ const deleteItems = async (req, res) => {
         if (!deleteItem) {
             return res.status(404).send(`There is no Item with id of ${id}`)
         }
-        res.status(203).send(deleteItem)
+        res.status(200).send(deleteItem)
     } catch (error) {
-        res.status(403).send(error.message)
+        res.status(400).send(error.message)
     }
 }
 
 module.exports = {
     getItems,
+    getOneItem,
     createItems,
     updateItems,
     deleteItems

@@ -5,7 +5,6 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 
 // TODO: 
-// Setup the search filter to filter name, category, location
 // Determine how to update each item
 // Add Authentication to protect the app from unwanted users altering the data
 

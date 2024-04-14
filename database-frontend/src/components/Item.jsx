@@ -29,6 +29,7 @@ function Item({data, deleteItem}) {
                                 <MdDelete />
                             </span>
                         </IconContext.Provider>
+                        
 
                         {data.productURL ? (
                             <p className="item_details"><strong>Product URL: &ensp;</strong>

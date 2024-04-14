@@ -1,9 +1,8 @@
 import { IoClose } from "react-icons/io5";
 import { useContext } from 'react'
-import AddItemForm from './AddItemForm'
 import { ToggleModalContext } from './ModalElement'
 
-function Modal() {
+function Modal({modalTitle, modalBody}) {
     const {setOpenModal} = useContext(ToggleModalContext)
 
     return (
@@ -25,11 +24,11 @@ function Modal() {
                 {/* Modal Content */}
                 {/* Title */}
                 <div className="inline-block text-center mt-2.5">
-                    <h1 className="text-xl font-semibold">Add a new item</h1>
+                    <h1 className="text-xl font-semibold">{modalTitle}</h1>
                 </div>
                 {/* Body */}
                 <div>
-                    <AddItemForm />
+                    {modalBody}
                 </div>
             </div>
         </div>

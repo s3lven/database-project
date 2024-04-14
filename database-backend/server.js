@@ -5,7 +5,7 @@ const Cors = require('cors')
 require('dotenv').config()
 
 const {
-    getItems, createItems, updateItems, deleteItems
+    getItems, createItems, updateItems, deleteItems, getOneItem
 } = require('./controllers/itemController.js')
 
 // App Config
@@ -28,6 +28,9 @@ mongoose.connect(connectionURL)
 
 // Get item list
 app.get('/items', getItems)
+
+// Get one item 
+app.get('/items/:id', getOneItem)
 
 // Create a new Item
 app.post('/items', createItems)
