@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import axios from '../axios'
-import ModalElement from './Modal/ModalElement'
 import ItemList from './ItemList'
 import Filter from './Filter'
 import _ from "lodash"
-import AddItemForm from './Modal/AddItemForm'
+import { useModalContext } from '../hooks/useModalContext'
 
 export const NewItemContext = React.createContext()
 
 function Database() {
+    const {openModal} = useModalContext()
+
     const [filterInput, setFilterInput] = useState('')
     const [apiData, setApiData] = useState([])
     const [filteredData, setFilteredData] = useState([])
     const [emptyFields, setEmptyFields] = useState([])
     const [filter, setFilter] = useState({})
-
     // for new items
     const [formData, setFormData] = useState({
         name: "",
@@ -102,10 +102,12 @@ function Database() {
             <NewItemContext.Provider value={contextValue}>
                 <div className='flex flex-col gap-5'>
                     {/* Modal Code */}
-                    <div>
-                                <ModalElement buttonText={"Add New Item"} modalTitle={"Add a new item"} modalBody={<AddItemForm />}/>
-                    </div>
-                    <Filter />
+                    <button 
+                        className="bg-primary border text-white px-16 py-8 rounded-md cursor-pointer
+                        lg:self-start lg:px-8 xl:px-16 w-full font-semibold"
+                        onClick={() => {openModal("AddItemModal", {})}}>Add a new item
+                    </button>
+                    {/* <Filter /> */}
                 </div>
             </NewItemContext.Provider>
             

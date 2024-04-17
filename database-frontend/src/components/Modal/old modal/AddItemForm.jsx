@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
-import { NewItemContext } from "../Database"
+import { NewItemContext } from "../../Database"
 import { ToggleModalContext } from './ModalElement'
-import Select from '../Select'
-import axios from '../../axios'
+import Select from '../../Select'
+import axios from '../../../axios'
 import { locationOptions, requirementOptions } from './options'
 
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IconContext } from "react-icons";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdModeEdit  } from "react-icons/md";
 
 function Item({data, deleteItem}) {
     const [display, setDisplay] = useState(false)
@@ -27,6 +27,11 @@ function Item({data, deleteItem}) {
                             className="absolute top-5 right-5 p-1.5 rounded-lg cursor-pointer
                                 bg-[#f1f1f1] text-zinc-800">
                                 <MdDelete />
+                            </span>
+                            <span onClick
+                            className="absolute top-16 right-5 p-1.5 rounded-lg cursor-pointer
+                                bg-[#f1f1f1] text-zinc-800">
+                                <MdModeEdit />
                             </span>
                         </IconContext.Provider>
                         

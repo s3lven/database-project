@@ -1,4 +1,4 @@
-import { locationOptions, requirementOptions } from "./Modal/options"
+import { locationOptions, requirementOptions } from "./Modal/old modal/options"
 import Select from "./Select"
 import { useContext } from 'react'
 import { NewItemContext } from "./Database"
