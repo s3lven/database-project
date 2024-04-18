@@ -4,83 +4,61 @@ import ItemList from './ItemList'
 import Filter from './Filter'
 import _ from "lodash"
 import { useModalContext } from '../hooks/useModalContext'
+import { useItemsContext } from '../hooks/useItemsContext'
+import { useItemsDispatchContext} from '../hooks/useItemsDispatchContext'
 
 export const NewItemContext = React.createContext()
 
 function Database() {
     const {openModal} = useModalContext()
+    const state = useItemsContext()
+    const dispatch = useItemsDispatchContext()
 
     const [filterInput, setFilterInput] = useState('')
-    const [apiData, setApiData] = useState([])
     const [filteredData, setFilteredData] = useState([])
-    const [emptyFields, setEmptyFields] = useState([])
-    const [filter, setFilter] = useState({})
-    // for new items
-    const [formData, setFormData] = useState({
-        name: "",
-        description: "",
-        category: "",
-        recommendedUses: "",
-        numberAvailable: 0,
-        productURL: "",
-        location: [],
-        specialRequirements: [],
-    })
+    // const [filter, setFilter] = useState({})
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/items')
-            setApiData(response.data)
-            setFilteredData(response.data)
+            const res = await axios.get('/items')
+            setFilteredData(res.data)
+            dispatch({type: 'SET_ITEMS', payload: res.data})
         } catch (err) {
             console.log(err.message)
         }
     }
 
     useEffect(() => {
-        axios.get('/items')
+        console.log("Grabbing items")
+        axios
+            .get('/items')
             .then (res => {
-                setApiData(res.data)
                 setFilteredData(res.data)
+                dispatch({type: 'SET_ITEMS', payload: res.data})
             })
             .catch ((err) => {
                 console.log(err.message)
             })
-    },[])
+    },[dispatch])
 
     useEffect(() => {
-        console.log(filter)
         const shouldDisplay = (item) => {
             // console.log("Item Location: ", item.location)
             let matchesSearch = item.name.toLowerCase().includes(filterInput.toLowerCase())
             // console.log("matchesSearch: ", matchesSearch)
-            let matchesLocation = (filter.locationFilter != "" ? _.some(item.location, filter.locationFilter): true)
+            // let matchesLocation = (filter.locationFilter != "" ? _.some(item.location, filter.locationFilter): true)
             // console.log("matchesLocation: ", matchesLocation)
-            let matchesRequirements = (filter.requirementFilter != "" ? _.some(item.specialRequirements, filter.requirementFilter): true)
-
-            
-    
-            return matchesSearch && matchesLocation && matchesRequirements
+            // let matchesRequirements = (filter.requirementFilter != "" ? _.some(item.specialRequirements, filter.requirementFilter): true)
+            return matchesSearch // && matchesLocation && matchesRequirements
         }
 
-        const filteredItems = apiData.filter((item) => {
+        const filteredItems = state.items.filter((item) => {
             return shouldDisplay(item)
         })
 
         setFilteredData(filteredItems)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterInput, filter])
-
-    const contextValue = {
-        apiData,
-        formData,
-        setFormData,
-        fetchData,
-        emptyFields,
-        setEmptyFields,
-        filter,
-        setFilter
-    }
+    }, [filterInput])
 
     return (
         <>
@@ -96,20 +74,18 @@ function Database() {
                         className="text-black text-center rounded-md w-full h-14"
                     />
                 </div>
-                <ItemList filteredData={filteredData} fetchData={fetchData}/>
+                {state.loading ? 'Loading' : <ItemList filteredData={filteredData} fetchData={fetchData}/>}
+                
             </div>
             
-            <NewItemContext.Provider value={contextValue}>
                 <div className='flex flex-col gap-5'>
-                    {/* Modal Code */}
-                    <button 
-                        className="bg-primary border text-white px-16 py-8 rounded-md cursor-pointer
+                    {/* Add item modal */}
+                    <button className="bg-primary border text-white px-16 py-8 rounded-md
                         lg:self-start lg:px-8 xl:px-16 w-full font-semibold"
                         onClick={() => {openModal("AddItemModal", {})}}>Add a new item
                     </button>
                     {/* <Filter /> */}
                 </div>
-            </NewItemContext.Provider>
             
         </>
     )

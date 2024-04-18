@@ -18,7 +18,6 @@ const itemSchema = mongoose.Schema(
         },
         specialRequirements: {
             type: Array,
-            required: true,
         },
         numberAvailable: {
             type: Number,

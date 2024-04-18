@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef, useContext } from "react"
-import { NewItemContext } from "./Database"
+import { useState, useEffect, useRef } from "react"
+import _ from 'lodash'
 
-function Select({ multiple, value, onChange, options, containerName }) {
+function Select({ multiple, value, onChange, options, errors, containerName }) {
     const [isOpen, setIsOpen] = useState(false)
     const [highlightedIndex, setHighlightedIndex] = useState(0)
     const containerRef = useRef(null)
-    const {emptyFields} = useContext(NewItemContext)
 
     function clearOptions() {
         multiple? onChange([]) : onChange("")
@@ -13,8 +12,11 @@ function Select({ multiple, value, onChange, options, containerName }) {
 
     function selectOption(option) {
         if (multiple) {
-            if (value.includes(option)) {
-                onChange(value.filter(o => o !== option))
+            console.log("Value Before ", value)
+            console.log("Option ", option)
+            if (_.some(value, option)) {
+                onChange(_.without(value, option))
+                console.log("Value after ", value)
             } else {
                 onChange([...value, option])
             }
@@ -75,7 +77,7 @@ function Select({ multiple, value, onChange, options, containerName }) {
             border border-solid text-borCol rounded
             flex items-center gap-2 p-2 outline-none
             focus:border-cyan-500
-            ${emptyFields.includes(containerName) ? 'border-error' : ''}`}
+            ${_.has(errors, containerName) ? 'input_error' : '' } `}
             tabIndex={0}
             onClick={() => setIsOpen(prev => !prev)}
             onBlur={() => setIsOpen(false)}
@@ -85,6 +87,7 @@ function Select({ multiple, value, onChange, options, containerName }) {
                 <button key={v.value}
                     onClick={e => {
                         e.stopPropagation()
+                        e.preventDefault()
                         selectOption(v)
                     }}
                     className="flex items-center gap-2

@@ -47,9 +47,6 @@ const createItems = async (req, res) => {
         if (!category) {
             emptyFields.push('category')
         }
-        if (specialRequirements.length === 0) {
-            emptyFields.push('specialRequirements')
-        }
         if (!numberAvailable) {
             emptyFields.push('numberAvailable')
         }
@@ -58,7 +55,7 @@ const createItems = async (req, res) => {
         }
 
         if (emptyFields.length > 0) {
-            return res.status(400).json({error: "Please fill in all of the required fields", emptyFields, specialRequirements, location})
+            return res.status(400).json({error: "Please fill in all of the required fields", emptyFields, location})
         }
 
         res.status(400).send(error)

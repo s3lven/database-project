@@ -4,9 +4,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
 
-// context
-import ModalProvider from "./contexts/ModalContext"
+// context & modal management
 import ModalManager from "./components/Modal/ModalManager"
+import ModalProvider from "./contexts/ModalContext"
+import ItemsProvider from "./contexts/ItemsContext"
 
 // TODO: 
 // Determine how to update each item
@@ -18,18 +19,20 @@ function App() {
 
     return (
         <ModalProvider>
-          <ModalManager />
-          <BrowserRouter>
-          <Navbar />
-          <div className="w-1400 px-20 pb-20 pt-10 my-0 mx-auto">
-            <Routes>
-              <Route
-              path="/"
-              element={<Home />}
-              />
-            </Routes>
-          </div>        
-        </BrowserRouter>
+          <ItemsProvider>
+            <ModalManager />
+            <BrowserRouter>
+            <Navbar />
+            <div className="w-1400 px-20 pb-20 pt-10 my-0 mx-auto">
+              <Routes>
+                <Route
+                path="/"
+                element={<Home />}
+                />
+              </Routes>
+            </div>        
+          </BrowserRouter>
+        </ItemsProvider>
       </ModalProvider>
     )
 }
