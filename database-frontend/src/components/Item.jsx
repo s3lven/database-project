@@ -1,17 +1,16 @@
 import { useState } from 'react'
 import { IconContext } from "react-icons";
 import { MdDelete, MdModeEdit  } from "react-icons/md";
+import { useModalContext } from '../hooks/useModalContext';
 
 function Item({data, deleteItem}) {
+    const {openModal} = useModalContext()
     const [display, setDisplay] = useState(false)
-
-    const handleOnClick = () => {
-        setDisplay(!display)
-    }
 
     return (
         <>
-            <div onClick={handleOnClick} className="bg-white rounded my-5 mx-auto p-5 relative shadow=[2px_2px_5px_rgba(0,0,0,0.05)]">  
+            <div onClick={() => setDisplay(!display)}
+                className="bg-white rounded my-5 mx-auto p-5 relative shadow=[2px_2px_5px_rgba(0,0,0,0.05)]">  
                 <>
                     <p className="mx-0 mt-0 pr-5 mb-2.5 text-xl text-primary font-bold">{data.name}</p>
                     <p className="item_details"><strong>Description:</strong> {data.description}</p>
@@ -28,7 +27,7 @@ function Item({data, deleteItem}) {
                                 bg-[#f1f1f1] text-zinc-800">
                                 <MdDelete />
                             </span>
-                            <span onClick
+                            <span onClick={() => openModal("UpdateItemModal", {data})}
                             className="absolute top-16 right-5 p-1.5 rounded-lg cursor-pointer
                                 bg-[#f1f1f1] text-zinc-800">
                                 <MdModeEdit />
@@ -49,18 +48,15 @@ function Item({data, deleteItem}) {
                             </p>) : 
                             ''
                         }
-
-
                         <div className="item_details flex"><strong>Special Requirements: &ensp;</strong> 
                             {data.specialRequirements.map((v) => 
                                 (<p key={v.value}>{v.label}&emsp;&emsp;</p>)
                             )}
                         </div>
-
                         <div className="item_details flex"><strong>Locations: &ensp;</strong>
                             {data.location.map((v) => 
-                                    (<p key={v.value}>{v.label}&emsp;&emsp;</p>)
-                                )}    
+                                (<p key={v.value}>{v.label}&emsp;&emsp;</p>)
+                            )}    
                         </div>
                     </>
                     }

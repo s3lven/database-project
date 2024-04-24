@@ -11,17 +11,13 @@ import { locationOptions, requirementOptions } from './options'
 import { useItemsContext } from '../../hooks/useItemsContext'
 
 
-function AddItemModal({ onClose }) {
+function UpdateItemModal({ onClose, data }) {
+    const updateID = data._id
+
+
     // React Hook Form 
-    const form = useForm()
-    const { register, control, handleSubmit, formState } = form
-    const { errors } = formState
-
-    const {dispatch} = useItemsContext()
-
-    // Add item into DB and update global state
-    const onSubmit = async (data) => {
-        await axios.post('/items', {
+    const form = useForm({
+        defaultValues: {
             name: data.name,
             category: data.category,
             description: data.description,
@@ -30,10 +26,30 @@ function AddItemModal({ onClose }) {
             numberAvailable: data.numberAvailable,
             productURL: data.productURL,
             location: data.location,
+        }
+    })
+    const { register, control, handleSubmit, formState } = form
+    const { errors } = formState
+
+    const {dispatch} = useItemsContext()
+
+    // Update item into DB and update global state
+    const onSubmit = async (newData) => {
+        console.log(updateID)
+
+        await axios.patch(`/items/${updateID}`, {
+            name: newData.name,
+            category: newData.category,
+            description: newData.description,
+            recommendedUses: newData.recommendedUses,
+            specialRequirements: newData.specialRequirements,
+            numberAvailable: newData.numberAvailable,
+            productURL: newData.productURL,
+            location: newData.location,
         })
         .then((res) => {
-            console.log('Form submitted', res.data)
-            dispatch({type: "CREATE_ITEM", payload: res.data})
+            console.log('Form updated', res.data)
+            dispatch({type: "UPDATE_ITEM", payload: res.data})
             onClose()
         })
         .catch((err) => {
@@ -60,7 +76,7 @@ function AddItemModal({ onClose }) {
                 {/* Modal Content */}
                 {/* Title */}
                 <div className="inline-block text-center mt-2.5">
-                    <h1 className="text-xl font-semibold">Add a new Item</h1>
+                    <h1 className="text-xl font-semibold">Update an existing Item</h1>
                 </div>
                 {/* Body */}
                 <div>
@@ -155,4 +171,4 @@ function AddItemModal({ onClose }) {
     )
 }
 
-export default AddItemModal
+export default UpdateItemModal

@@ -1,11 +1,11 @@
 import { useModalContext } from '../../hooks/useModalContext.jsx'
 
 import AddItemModal from './AddItemModal'
-// import UpdateItemModal from './UpdateItemModal'
+import UpdateItemModal from './UpdateItemModal'
 
 const ModalLookup = {
     AddItemModal : AddItemModal,
-    // UpdateItemModal : UpdateItemModal,
+    UpdateItemModal : UpdateItemModal,
 }
 
 function ModalManager() {

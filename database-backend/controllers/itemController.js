@@ -72,7 +72,7 @@ const updateItems = async (req, res) => {
         }
         const itemID = {_id: id}
         const update = { ...req.body}
-        const updateItem = await Items.findOneAndUpdate(itemID, update)
+        const updateItem = await Items.findOneAndUpdate(itemID, update, {new:true})
         if (!updateItem) {
             return res.status(404).send(`There is no Item with id of ${id}`)
         }

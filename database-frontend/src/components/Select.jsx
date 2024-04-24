@@ -12,11 +12,11 @@ function Select({ multiple, value, onChange, options, errors, containerName }) {
 
     function selectOption(option) {
         if (multiple) {
-            console.log("Value Before ", value)
-            console.log("Option ", option)
+            // console.log("Value Before ", value)
+            // console.log("Option ", option)
             if (_.some(value, option)) {
                 onChange(_.without(value, option))
-                console.log("Value after ", value)
+                // console.log("Value after ", value)
             } else {
                 onChange([...value, option])
             }

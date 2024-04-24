@@ -5,30 +5,19 @@ import Filter from './Filter'
 import _ from "lodash"
 import { useModalContext } from '../hooks/useModalContext'
 import { useItemsContext } from '../hooks/useItemsContext'
-import { useItemsDispatchContext} from '../hooks/useItemsDispatchContext'
 
 export const NewItemContext = React.createContext()
 
 function Database() {
     const {openModal} = useModalContext()
-    const state = useItemsContext()
-    const dispatch = useItemsDispatchContext()
+    const {items, dispatch} = useItemsContext()
 
     const [filterInput, setFilterInput] = useState('')
     const [filteredData, setFilteredData] = useState([])
     // const [filter, setFilter] = useState({})
 
-    const fetchData = async () => {
-        try {
-            const res = await axios.get('/items')
-            setFilteredData(res.data)
-            dispatch({type: 'SET_ITEMS', payload: res.data})
-        } catch (err) {
-            console.log(err.message)
-        }
-    }
-
     useEffect(() => {
+        const fetchItems = async () => { 
         console.log("Grabbing items")
         axios
             .get('/items')
@@ -39,6 +28,9 @@ function Database() {
             .catch ((err) => {
                 console.log(err.message)
             })
+        }
+
+        fetchItems()
     },[dispatch])
 
     useEffect(() => {
@@ -52,13 +44,14 @@ function Database() {
             return matchesSearch // && matchesLocation && matchesRequirements
         }
 
-        const filteredItems = state.items.filter((item) => {
-            return shouldDisplay(item)
-        })
-
-        setFilteredData(filteredItems)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterInput])
+        if (items) {
+            const filteredItems = items.filter((item) => {
+                return shouldDisplay(item)
+            })
+    
+            setFilteredData(filteredItems)
+        }
+    }, [items, filterInput])
 
     return (
         <>
@@ -74,7 +67,7 @@ function Database() {
                         className="text-black text-center rounded-md w-full h-14"
                     />
                 </div>
-                {state.loading ? 'Loading' : <ItemList filteredData={filteredData} fetchData={fetchData}/>}
+                <ItemList filteredData={filteredData} />
                 
             </div>
             

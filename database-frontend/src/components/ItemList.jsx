@@ -1,18 +1,21 @@
 import Item from "./Item"
 import axios from "../axios"
+import { useItemsContext } from "../hooks/useItemsContext"
 
-function ItemList({filteredData, fetchData}) {
+function ItemList({ filteredData }) {
+    const { dispatch } = useItemsContext()
+
     const deleteItem = async (id) => {
         try{
-            const response = await axios.delete(`/items/${id}`, {id})
-            fetchData()
-            return response.data.json
+            axios
+                .delete(`/items/${id}`, {id})
+                .then( res => {
+                    dispatch({type: 'DELETE_ITEM', payload: res.data})
+                })
         } catch (err) {
             console.log(err.message)
         }
     }
-
-    
 
     return (
         <>
