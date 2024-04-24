@@ -14,7 +14,7 @@ function Database() {
 
     const [filterInput, setFilterInput] = useState('')
     const [filteredData, setFilteredData] = useState([])
-    // const [filter, setFilter] = useState({})
+    const [filter, setFilter] = useState({})
 
     useEffect(() => {
         const fetchItems = async () => { 
@@ -38,10 +38,10 @@ function Database() {
             // console.log("Item Location: ", item.location)
             let matchesSearch = item.name.toLowerCase().includes(filterInput.toLowerCase())
             // console.log("matchesSearch: ", matchesSearch)
-            // let matchesLocation = (filter.locationFilter != "" ? _.some(item.location, filter.locationFilter): true)
+            let matchesLocation = (filter.locationFilter != "" ? _.some(item.location, filter.locationFilter): true)
             // console.log("matchesLocation: ", matchesLocation)
-            // let matchesRequirements = (filter.requirementFilter != "" ? _.some(item.specialRequirements, filter.requirementFilter): true)
-            return matchesSearch // && matchesLocation && matchesRequirements
+            let matchesRequirements = (filter.requirementFilter != "" ? _.some(item.specialRequirements, filter.requirementFilter): true)
+            return matchesSearch && matchesLocation && matchesRequirements
         }
 
         if (items) {
@@ -51,7 +51,7 @@ function Database() {
     
             setFilteredData(filteredItems)
         }
-    }, [items, filterInput])
+    }, [filterInput, filter])
 
     return (
         <>
@@ -77,7 +77,7 @@ function Database() {
                         lg:self-start lg:px-8 xl:px-16 w-full font-semibold"
                         onClick={() => {openModal("AddItemModal", {})}}>Add a new item
                     </button>
-                    {/* <Filter /> */}
+                    <Filter filter={filter} setFilter={setFilter}/>
                 </div>
             
         </>
