@@ -1,12 +1,12 @@
 const express = require("express")
 const mongoose = require("mongoose")
 
+const itemRoutes = require('./routes/items')
+const userRoutes = require('./routes/users')
+
 const Cors = require('cors')
 require('dotenv').config()
 
-const {
-    getItems, createItems, updateItems, deleteItems, getOneItem
-} = require('./controllers/itemController.js')
 
 // App Config
 const app = express()
@@ -19,25 +19,13 @@ app.use(Cors())
 
 // DB Config
 mongoose.connect(connectionURL)
-.then(() => {
-    app.listen(port, () => console.log(`Connected to the database and running on port: ${port}`))
-})
-.catch((err) => console.log(err))
+    .then(() => {
+        app.listen(port, () => console.log(`Connected to the database and running on port: ${port}`))
+    })
+    .catch((err) => console.log(err))
 
-// API Endpoints
+// TODO: Add error handling for wrong routes
 
-// Get item list
-app.get('/items', getItems)
-
-// Get one item 
-app.get('/items/:id', getOneItem)
-
-// Create a new Item
-app.post('/items', createItems)
-
-// Update an Item
-app.patch('/items/:id', updateItems)
-
-// Delete an Item
-app.delete('/items/:id', deleteItems)
-
+// Routes
+app.use('/api/items', itemRoutes)
+app.use('/api/user', userRoutes)
