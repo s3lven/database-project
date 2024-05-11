@@ -1,10 +1,7 @@
 import { locationOptions, requirementOptions } from "./Modal/options"
 import Select from "./Select"
-import { useContext } from 'react'
-import { NewItemContext } from "./Database"
 
-function Filter() {
-    const {filter, setFilter} = useContext(NewItemContext)
+function Filter({filter, setFilter}) {
 
     return (
         <div className='bg-white rounded p-5 flex flex-col'>
