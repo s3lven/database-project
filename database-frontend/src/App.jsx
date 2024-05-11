@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import ModalManager from "./components/Modal/ModalManager"
 import ModalProvider from "./contexts/ModalContext"
 import ItemsProvider from "./contexts/ItemsContext"
+import AuthContextProvider from "./contexts/AuthContext"
 
 // TODO High Priority
 // TODO Add Authentication to protect the app from unwanted users altering the data
@@ -21,20 +22,22 @@ function App() {
 
     return (
         <ModalProvider>
-          <ItemsProvider>
-            <ModalManager />
-            <BrowserRouter>
-            <Navbar />
-            <div className="w-1400 px-20 pb-20 pt-10 my-0 mx-auto">
-              <Routes>
-                <Route
-                path="/"
-                element={<Home />}
-                />
-              </Routes>
-            </div>        
-          </BrowserRouter>
-        </ItemsProvider>
+          <AuthContextProvider>
+            <ItemsProvider>
+              <ModalManager />
+              <BrowserRouter>
+              <Navbar />
+              <div className="w-1400 px-20 pb-20 pt-10 my-0 mx-auto">
+                <Routes>
+                  <Route
+                  path="/"
+                  element={<Home />}
+                  />
+                </Routes>
+              </div>        
+            </BrowserRouter>
+          </ItemsProvider>
+        </AuthContextProvider>
       </ModalProvider>
     )
 }

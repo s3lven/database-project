@@ -20,6 +20,7 @@ const userSchema = new Schema({
     }
 })
 
+// Static Signup Method
 userSchema.statics.signup = async function (email, name, password) {
     // Check if all the fields have been inputted
     if(!email || !name || !password) {
@@ -58,6 +59,27 @@ userSchema.statics.signup = async function (email, name, password) {
     })
 
     console.log(user)
+    return user
+}
+
+// Static Login Method
+userSchema.statics.login = async function(email, password) {
+    if (!email || !password) {
+        throw Error('All fields must be filled')
+    }
+
+    // Check if the email matches to one in the DB
+    const user = await this.findOne({ email })
+    if (!user) {
+        throw Error('Incorrect email')
+    }
+
+    // Check if input password matches with the hashed password
+    const passwordMatch = await bcrypt.compare(password, user.password)
+    if(!passwordMatch) {
+        throw Error('Incorrect password')
+    }
+
     return user
 }
 
