@@ -37,7 +37,7 @@ function UpdateItemModal({ onClose, data }) {
     const onSubmit = async (newData) => {
         console.log(updateID)
 
-        await axios.patch(`/items/${updateID}`, {
+        await axios.patch(`/api/items/${updateID}`, {
             name: newData.name,
             category: newData.category,
             description: newData.description,

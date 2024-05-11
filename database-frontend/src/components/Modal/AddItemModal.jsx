@@ -21,7 +21,7 @@ function AddItemModal({ onClose }) {
 
     // Add item into DB and update global state
     const onSubmit = async (data) => {
-        await axios.post('/items', {
+        await axios.post('/api/items', {
             name: data.name,
             category: data.category,
             description: data.description,

@@ -8,7 +8,7 @@ function ItemList({ filteredData }) {
     const deleteItem = async (id) => {
         try{
             axios
-                .delete(`/items/${id}`, {id})
+                .delete(`/api/items/${id}`, {id})
                 .then( res => {
                     dispatch({type: 'DELETE_ITEM', payload: res.data})
                 })

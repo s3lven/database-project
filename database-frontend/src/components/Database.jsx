@@ -20,7 +20,7 @@ function Database() {
         const fetchItems = async () => { 
         console.log("Grabbing items")
         axios
-            .get('/items')
+            .get('/api/items')
             .then (res => {
                 setFilteredData(res.data)
                 dispatch({type: 'SET_ITEMS', payload: res.data})
