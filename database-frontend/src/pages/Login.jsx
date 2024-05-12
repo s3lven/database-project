@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-//TODO: Redo form with React-Hook-Form. Do Login Page
+//TODO: Redo form with React-Hook-Form.
 
 
-function Signup() {
+function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -15,8 +15,8 @@ function Signup() {
 
     return (
         <form className="max-w-[400px] my-10 mx-auto p-5 bg-white rounded"
-        onSubmit={handleSubmit}>
-            <h1 className='font-bold text-xl my-5'>Sign up</h1>
+            onSubmit={handleSubmit}>
+            <h1 className='font-bold text-xl my-5'>Log In</h1>
 
             <label>Email:</label>
             <input
@@ -34,9 +34,9 @@ function Signup() {
                 className='p-2.5 mt-2.5 mb-5 w-full border-[1px] rounded box-border'
             />
 
-            <button className="bg-primary border-none text-white p-3 rounded cursor-pointer">Sign Up</button>
+            <button className="bg-primary border-none text-white p-3 rounded cursor-pointer">Log In</button>
         </form>
     )
 }
 
-export default Signup
+export default Login
