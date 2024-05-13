@@ -1,8 +1,12 @@
 const express = require('express')
 
 const {getItems, createItems, updateItems, deleteItems, getOneItem } = require('../controllers/itemController')
+const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
+
+// Require auth for all item routes
+router.use(requireAuth)
 
 // API Endpoints
 

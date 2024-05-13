@@ -9,7 +9,7 @@ import Select from "../Select";
 import { locationOptions, requirementOptions } from './options'
 
 import { useItemsContext } from '../../hooks/useItemsContext'
-
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function UpdateItemModal({ onClose, data }) {
     const updateID = data._id
@@ -32,10 +32,16 @@ function UpdateItemModal({ onClose, data }) {
     const { errors } = formState
 
     const {dispatch} = useItemsContext()
+    const {user} = useAuthContext()
 
     // Update item into DB and update global state
     const onSubmit = async (newData) => {
         console.log(updateID)
+        
+        if (!user) {
+            console.log("You must be logged in before updating an item")
+            return
+        }
 
         await axios.patch(`/api/items/${updateID}`, {
             name: newData.name,
@@ -46,6 +52,8 @@ function UpdateItemModal({ onClose, data }) {
             numberAvailable: newData.numberAvailable,
             productURL: newData.productURL,
             location: newData.location,
+        }, {
+            headers: { 'Authorization': `Bearer ${user.data.token}`}
         })
         .then((res) => {
             console.log('Form updated', res.data)

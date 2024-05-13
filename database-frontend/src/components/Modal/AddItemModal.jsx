@@ -9,6 +9,7 @@ import Select from "../Select";
 import { locationOptions, requirementOptions } from './options'
 
 import { useItemsContext } from '../../hooks/useItemsContext'
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 
 function AddItemModal({ onClose }) {
@@ -18,9 +19,15 @@ function AddItemModal({ onClose }) {
     const { errors } = formState
 
     const {dispatch} = useItemsContext()
+    const {user} = useAuthContext()
 
     // Add item into DB and update global state
     const onSubmit = async (data) => {
+        if(!user) {
+            console.log("You must be logged in before adding a new item")
+            return
+        }
+
         await axios.post('/api/items', {
             name: data.name,
             category: data.category,
@@ -30,6 +37,8 @@ function AddItemModal({ onClose }) {
             numberAvailable: data.numberAvailable,
             productURL: data.productURL,
             location: data.location,
+        }, {
+            headers: { 'Authorization': `Bearer ${user.data.token}`}
         })
         .then((res) => {
             console.log('Form submitted', res.data)

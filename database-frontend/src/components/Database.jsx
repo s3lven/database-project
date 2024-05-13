@@ -5,12 +5,14 @@ import Filter from './Filter'
 import _ from "lodash"
 import { useModalContext } from '../hooks/useModalContext'
 import { useItemsContext } from '../hooks/useItemsContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 export const NewItemContext = React.createContext()
 
 function Database() {
     const {openModal} = useModalContext()
     const {items, dispatch} = useItemsContext()
+    const {user} = useAuthContext()
 
     const [filterInput, setFilterInput] = useState('')
     const [filteredData, setFilteredData] = useState([])
@@ -20,7 +22,9 @@ function Database() {
         const fetchItems = async () => { 
         console.log("Grabbing items")
         axios
-            .get('/api/items')
+            .get('/api/items', {
+                headers: { 'Authorization': `Bearer ${user.data.token}`}
+            })
             .then (res => {
                 setFilteredData(res.data)
                 dispatch({type: 'SET_ITEMS', payload: res.data})
@@ -30,8 +34,11 @@ function Database() {
             })
         }
 
-        fetchItems()
-    },[dispatch])
+        if (user) {
+            fetchItems()
+
+        }
+    },[dispatch, user])
 
     useEffect(() => {
         const shouldDisplay = (item) => {

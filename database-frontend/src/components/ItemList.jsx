@@ -1,14 +1,23 @@
 import Item from "./Item"
 import axios from "../axios"
 import { useItemsContext } from "../hooks/useItemsContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 function ItemList({ filteredData }) {
     const { dispatch } = useItemsContext()
+    const { user } = useAuthContext()
 
     const deleteItem = async (id) => {
+        if (!user) {
+            console.log("You must be logged in before deleting an item")
+            return
+        }
+
         try{
             axios
-                .delete(`/api/items/${id}`, {id})
+                .delete(`/api/items/${id}`, {id}, {
+                    headers: { 'Authorization': `Bearer ${user.data.token}`}
+                })
                 .then( res => {
                     dispatch({type: 'DELETE_ITEM', payload: res.data})
                 })
