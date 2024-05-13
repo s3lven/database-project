@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { IconContext } from "react-icons";
 import { MdDelete, MdModeEdit  } from "react-icons/md";
 import { useModalContext } from '../hooks/useModalContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function Item({data, deleteItem}) {
     // Opens the UpdateItemModal
     const {openModal} = useModalContext()
+    const {user} = useAuthContext()
     // Local state to display item details
     const [display, setDisplay] = useState(false)
 
@@ -24,6 +26,7 @@ function Item({data, deleteItem}) {
                     <>
                         <hr className=" my-3"></hr> 
                         {/* Delete and Update Buttons */}
+                        { user &&
                         <IconContext.Provider value={{size: "1.5em"}}>
                             <span onClick={deleteItem}
                             className="absolute top-5 right-5 p-1.5 rounded-lg cursor-pointer
@@ -36,6 +39,7 @@ function Item({data, deleteItem}) {
                                 <MdModeEdit />
                             </span>
                         </IconContext.Provider>
+                        }
                         
                         {/* Rest of the fields */}
                         {data.productURL ? (

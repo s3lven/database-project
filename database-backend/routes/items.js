@@ -5,13 +5,13 @@ const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
 
+// API Endpoints
+// Get item list
+router.get('/', getItems)
+
 // Require auth for all item routes
 router.use(requireAuth)
 
-// API Endpoints
-
-// Get item list
-router.get('/', getItems)
 // Get one item 
 router.get('/:id', getOneItem)
 // Create a new Item

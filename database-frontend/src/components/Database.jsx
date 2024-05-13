@@ -22,9 +22,7 @@ function Database() {
         const fetchItems = async () => { 
         console.log("Grabbing items")
         axios
-            .get('/api/items', {
-                headers: { 'Authorization': `Bearer ${user.data.token}`}
-            })
+            .get('/api/items')
             .then (res => {
                 setFilteredData(res.data)
                 dispatch({type: 'SET_ITEMS', payload: res.data})
@@ -34,20 +32,21 @@ function Database() {
             })
         }
 
-        if (user) {
-            fetchItems()
-
-        }
-    },[dispatch, user])
+        fetchItems()
+    },[dispatch])
 
     useEffect(() => {
         const shouldDisplay = (item) => {
-            // console.log("Item Location: ", item.location)
+            // console.log("Item: ", item)
+            // console.log("Item Location: ", item.specialRequirements)
             let matchesSearch = item.name.toLowerCase().includes(filterInput.toLowerCase())
             // console.log("matchesSearch: ", matchesSearch)
-            let matchesLocation = (filter.locationFilter != "" ? _.some(item.location, filter.locationFilter): true)
+            let matchesLocation = (filter.locationFilter? _.some(item.location, filter.locationFilter): true)
             // console.log("matchesLocation: ", matchesLocation)
-            let matchesRequirements = (filter.requirementFilter != "" ? _.some(item.specialRequirements, filter.requirementFilter): true)
+            let matchesRequirements = (filter.requirementFilter? _.some(item.specialRequirements, filter.requirementFilter): true)
+            // console.log("location Filter: ", filter.locationFilter)
+            // console.log("Matches all:", matchesSearch, matchesLocation, matchesRequirements)
+
             return matchesSearch && matchesLocation && matchesRequirements
         }
 
@@ -80,10 +79,12 @@ function Database() {
             
                 <div className='flex flex-col gap-5'>
                     {/* Add item modal */}
-                    <button className="bg-primary border text-white px-16 py-8 rounded-md
-                        lg:self-start lg:px-8 xl:px-16 w-full font-semibold"
-                        onClick={() => {openModal("AddItemModal", {})}}>Add a new item
-                    </button>
+                    { user &&
+                        <button className="bg-primary border text-white px-16 py-8 rounded-md
+                            lg:self-start lg:px-8 xl:px-16 w-full font-semibold"
+                            onClick={() => {openModal("AddItemModal", {})}}>Add a new item
+                        </button>
+                    }
                     <Filter filter={filter} setFilter={setFilter}/>
                 </div>
             

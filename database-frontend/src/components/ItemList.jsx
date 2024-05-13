@@ -15,11 +15,12 @@ function ItemList({ filteredData }) {
 
         try{
             axios
-                .delete(`/api/items/${id}`, {id}, {
+                .delete(`/api/items/${id}`, {
                     headers: { 'Authorization': `Bearer ${user.data.token}`}
                 })
                 .then( res => {
                     dispatch({type: 'DELETE_ITEM', payload: res.data})
+                    console.log("Deleted item", res.data)
                 })
         } catch (err) {
             console.log(err.message)

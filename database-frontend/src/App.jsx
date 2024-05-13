@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
 // pages and components
 import Home from './pages/Home'
@@ -10,7 +10,7 @@ import Navbar from './components/Navbar'
 import ModalManager from "./components/Modal/ModalManager"
 import ModalProvider from "./contexts/ModalContext"
 import ItemsProvider from "./contexts/ItemsContext"
-import AuthContextProvider from "./contexts/AuthContext"
+import { useAuthContext } from "./hooks/useAuthContext"
 
 // TODO High Priority
 // TODO Add Authentication to protect the app from unwanted users altering the data
@@ -21,10 +21,10 @@ import AuthContextProvider from "./contexts/AuthContext"
 
 
 function App() {
+  const {user} = useAuthContext()
 
     return (
         <ModalProvider>
-          <AuthContextProvider>
             <ItemsProvider>
               <ModalManager />
               <BrowserRouter>
@@ -37,17 +37,16 @@ function App() {
                   />
                   <Route
                   path="/login"
-                  element={<Login />}
+                  element={!user ? <Login /> : <Navigate to="/" />}
                   />
                   <Route
                   path="/signup"
-                  element={<Signup />}
+                  element={!user ? <Signup /> : <Navigate to="/" />}
                   />
                 </Routes>
               </div>        
             </BrowserRouter>
           </ItemsProvider>
-        </AuthContextProvider>
       </ModalProvider>
     )
 }
