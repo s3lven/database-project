@@ -26,6 +26,8 @@ function Database() {
             .then (res => {
                 setFilteredData(res.data)
                 dispatch({type: 'SET_ITEMS', payload: res.data})
+                console.log("Finished grabbing items: ", res.data)
+
             })
             .catch ((err) => {
                 console.log(err.message)
@@ -57,7 +59,7 @@ function Database() {
     
             setFilteredData(filteredItems)
         }
-    }, [filterInput, filter])
+    }, [items, filterInput, filter])
 
     return (
         <>

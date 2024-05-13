@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLogin } from '../hooks/useLogin'
 
 //TODO: Redo form with React-Hook-Form.
@@ -35,10 +36,14 @@ function Login() {
                 value={password}
                 className='p-2.5 mt-2.5 mb-5 w-full border-[1px] rounded box-border'
             />
-
-            <button disabled={isLoading} className="bg-primary border-none text-white p-3 rounded cursor-pointer">Log In</button>
+            <div className='flex flex-grow items-center justify-between'>
+                <button disabled={isLoading}
+                    className="bg-primary border-none text-white p-3 rounded cursor-pointer">Log In</button>
+                <Link
+                    to="/signup">Create Account</Link>
+            </div>
+            
             {error && <div className='p-2.5 bg-[#ffefef] border border-solid border-error text-error rounded my-5 mx-0'>{error}</div>}
-
         </form>
     )
 }

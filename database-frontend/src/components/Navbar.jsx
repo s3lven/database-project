@@ -27,9 +27,8 @@ const Navbar = () => {
                                 py-1.5 px-2.5 rounded cursor-pointer text-[1em]">Log out</button>
                     </div>
                     :
-                    <div className="flex items-center gap-3">
-                        <Link to='/login'>Login</Link>
-                        <Link to='/signup'>Sign Up</Link>
+                    <div className="border rounded border-solid bg-primary text-white px-5 py-2.5">
+                        <Link to='/login'>Log In</Link>
                     </div>
                     }
                 </nav>

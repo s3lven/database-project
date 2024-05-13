@@ -16,7 +16,8 @@ function itemsReducer(state, action) {
             return {
                 items: state.items.filter(item => item._id !== action.payload._id)
             }
-        case 'UPDATE_ITEM':
+        case 'UPDATE_ITEM': {
+            console.log("Updated!!!!")
             return {
                 items: state.items.map(i => {
                     if (i._id === action.payload._id) {
@@ -26,6 +27,7 @@ function itemsReducer(state, action) {
                     }
                 })
             }
+        }
         default:
             return state
     }
@@ -33,7 +35,7 @@ function itemsReducer(state, action) {
 
 export default function ItemsProvider({ children }) {
     const [state, dispatch] = useReducer(itemsReducer, {
-        items: []
+        items: null
     }    
     )
 
