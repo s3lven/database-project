@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLogin } from '../hooks/useLogin'
 
 //TODO: Redo form with React-Hook-Form.
 
@@ -6,11 +7,12 @@ import { useState } from 'react'
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const { login, isLoading, error} = useLogin()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(email, password)
+        await login(email, password)
     }
 
     return (
@@ -34,7 +36,9 @@ function Login() {
                 className='p-2.5 mt-2.5 mb-5 w-full border-[1px] rounded box-border'
             />
 
-            <button className="bg-primary border-none text-white p-3 rounded cursor-pointer">Log In</button>
+            <button disabled={isLoading} className="bg-primary border-none text-white p-3 rounded cursor-pointer">Log In</button>
+            {error && <div className='p-2.5 bg-[#ffefef] border border-solid border-error text-error rounded my-5 mx-0'>{error}</div>}
+
         </form>
     )
 }

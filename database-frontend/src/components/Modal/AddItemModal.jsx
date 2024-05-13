@@ -143,7 +143,7 @@ function AddItemModal({ onClose }) {
                                 />
                             </div>
                         </div>
-                        {!(_.isEmpty(errors)) && <div className="p-2.5 bg-[#ffefef] border border-solid border-error text-error rounded mt-16 mx-0">Please fill in all of the required fields.</div>}
+                        {!(_.isEmpty(errors)) && <div className="p-2.5 bg-[#ffefef] border border-solid border-error text-error rounded mt-5 mx-0">Please fill in all of the required fields.</div>}
                         <div className='flex justify-end my-5'>
                             <button className="bg-red-500 px-10 py-3.5 rounded-full text-white drop-shadow-md font-semibold">Done</button>
                         </div>

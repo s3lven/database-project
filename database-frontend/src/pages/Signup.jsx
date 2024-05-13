@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSignup } from '../hooks/useSignup'
 
 //TODO: Redo form with React-Hook-Form. Do Login Page
 
@@ -6,11 +7,14 @@ import { useState } from 'react'
 function Signup() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
+    const { signup, error, isLoading } = useSignup()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(email, password)
+        console.log("Before signup: ", email, name, password)
+        await signup({email, name, password})
     }
 
     return (
@@ -26,6 +30,14 @@ function Signup() {
                 className='p-2.5 mt-2.5 mb-5 w-full border-[1px] rounded box-border'
             />
 
+            <label>Name:</label>
+            <input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                className='p-2.5 mt-2.5 mb-5 w-full border-[1px] rounded box-border'
+            />
+
             <label>Password:</label>
             <input
                 type="password"
@@ -34,7 +46,9 @@ function Signup() {
                 className='p-2.5 mt-2.5 mb-5 w-full border-[1px] rounded box-border'
             />
 
-            <button className="bg-primary border-none text-white p-3 rounded cursor-pointer">Sign Up</button>
+            <button disabled={isLoading}
+                className="bg-primary border-none text-white p-3 rounded cursor-pointer">Sign Up</button>
+            {error && <div className='p-2.5 bg-[#ffefef] border border-solid border-error text-error rounded my-5 mx-0'>{error}</div>}
         </form>
     )
 }

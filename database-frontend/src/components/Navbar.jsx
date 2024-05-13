@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom'
+import { useLogout } from '../hooks/useLogout'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const Navbar = () => {
+    const { logout } = useLogout()
+    const { user } = useAuthContext()
+
+    const handleClick = () => {
+        logout()
+    }
 
     return (
         <header className="bg-white"> 
@@ -10,11 +18,20 @@ const Navbar = () => {
                     <h1>UCD Health | Center for Simulation and Education Enhancement</h1>
                     <h1>Equipment and Simulator Catalog</h1>
                 </Link>
-                <nav>
+                <nav className='flex items-center gap-2.5'>
+                    {user ? 
+                    <div className=' flex flex-row items-center gap-2.5'>
+                        <span>Hello {user.data.email}!</span>
+                        <button onClick={handleClick}
+                            className="bg-white text-primary border-2 border-solid border-primary
+                                py-1.5 px-2.5 rounded cursor-pointer text-[1em]">Log out</button>
+                    </div>
+                    :
                     <div className="flex items-center gap-3">
                         <Link to='/login'>Login</Link>
                         <Link to='/signup'>Sign Up</Link>
                     </div>
+                    }
                 </nav>
             </div>
         </header>
