@@ -14,7 +14,17 @@ import { useAuthContext } from "./hooks/useAuthContext"
 
 // TODO High Priority
 // TODO Add Authentication to protect the app from unwanted users altering the data
+// TODO add confirmation when deleting item
+// TODO add confirmating when updating an item and not confirming
+// TODO check for negative numbers in items
+// TODO better error messages
+// TODO add infrastructure for adding images (do not use current DB)
+// TODO add text wrap for description and title
+// TODO make 'number available' field smaller
+// TODO add TESTINGGGGGGGGG
+// TODO add 'last edit by' field
 // ? Low Priority
+// ? Add loading screen
 // ? Add user notifications for 'item added' and 'item updated'
 // ? Add loading UI in the case the database needs ot reload
 // ? Add metrics for items in each category/location

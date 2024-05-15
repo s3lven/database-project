@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from '../axios'
 import ItemList from './ItemList'
 import Filter from './Filter'
+import AddNewItemButton from './AddNewItemButton'
 import _ from "lodash"
-import { useModalContext } from '../hooks/useModalContext'
 import { useItemsContext } from '../hooks/useItemsContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 export const NewItemContext = React.createContext()
 
 function Database() {
-    const {openModal} = useModalContext()
     const {items, dispatch} = useItemsContext()
     const {user} = useAuthContext()
 
@@ -81,11 +80,8 @@ function Database() {
             
                 <div className='flex flex-col gap-5'>
                     {/* Add item modal */}
-                    { user &&
-                        <button className="bg-primary border text-white px-16 py-8 rounded-md
-                            lg:self-start lg:px-8 xl:px-16 w-full font-semibold"
-                            onClick={() => {openModal("AddItemModal", {})}}>Add a new item
-                        </button>
+                    {user &&
+                        <AddNewItemButton />
                     }
                     <Filter filter={filter} setFilter={setFilter}/>
                 </div>
