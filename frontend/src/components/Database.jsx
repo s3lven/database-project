@@ -78,14 +78,13 @@ function Database() {
                 
             </div>
             
-                <div className='flex flex-col gap-5'>
-                    {/* Add item modal */}
-                    {user &&
-                        <AddNewItemButton />
-                    }
-                    <Filter filter={filter} setFilter={setFilter}/>
-                </div>
-            
+            <div className='flex flex-col gap-5'>
+                {/* Add item modal */}
+                {user &&
+                    <AddNewItemButton />
+                }
+                <Filter filter={filter} setFilter={setFilter}/>
+            </div>
         </>
     )
 }
